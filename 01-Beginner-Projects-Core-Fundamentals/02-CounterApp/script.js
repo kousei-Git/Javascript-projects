@@ -1,21 +1,23 @@
-const counter = document.getElementById('counter')
-const btnIncrease = document.querySelector('.btn-increase')
-const btnDecrease = document.querySelector('.btn-decrease')
-const btnReset = document.querySelector('.btn-reset')
+let counterValue = document.querySelector('.counter-value')
+let incBtn = document.getElementById('incBtn')
+let decBtn = document.getElementById('decBtn')
+let reset = document.querySelector('.reset-btn')
+let toggleBtn = document.querySelector('.theme-toggle')
+let count = 0
 
-let count  = 0
-
-btnIncrease.addEventListener('click',()=>{
+console.log(counterValue)
+const updateDisplay = () => {
+    counterValue.textContent = count
+}
+incBtn.addEventListener('click', () => {
     count++
-    counter.textContent = count
+    updateDisplay()
 })
-
-btnDecrease.addEventListener('click',()=>{
+decBtn.addEventListener('click', () => {
     count--
-    counter.textContent = count
+    updateDisplay()
 })
-
-btnReset.addEventListener('click',()=>{
+reset.addEventListener('click', () => {
     count = 0
-    counter.textContent = count
+    updateDisplay()
 })

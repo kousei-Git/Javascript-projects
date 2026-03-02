@@ -1,43 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Modern Counter App</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="container">
-      <div class="counter-card">
-        <div class="header">
-          <h1>Counter App</h1>
-          <p class="subtitle">Simple & Elegant</p>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Memphis Pop Counter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+
+    <!-- Floating decorative circles -->
+    <div class="floating-circle circle-yellow"></div>
+    <div class="floating-circle circle-green"></div>
+    <div class="floating-circle circle-orange"></div>
+    <div class="floating-circle circle-pink"></div>
+
+    <!-- Navigation -->
+    <nav class="nav-bar">
+        <button class="nav-btn nav-btn-active">SIMPLE</button>
+        <button class="nav-btn nav-btn-disabled" disabled>ADVANCED</button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-container">
+
+        <h1 class="main-title">
+            The Capable Counter
+        </h1>
+
+        <!-- Counter Display -->
+        <div class="counter-wrapper">
+            <div class="counter-display">
+                <span class="counter-value">0</span>
+                <div class="counter-dot-tl"></div>
+                <div class="counter-dot-br"></div>
+            </div>
+
+            <!-- Side Labels -->
+            <div class="side-label side-label-left">
+                <div class="label-ready">READY</div>
+            </div>
+            <div class="side-label side-label-right">
+                <div class="label-go">GO!</div>
+            </div>
         </div>
 
-        <div class="counter-display">
-          <span id="counter">0</span>
+        <!-- Buttons -->
+        <div class="buttons-row">
+            <button class="counter-btn btn-decrease" id="decBtn">
+                <span class="material-icons btn-icon">remove</span>
+                <span class="btn-label">DECREASE</span>
+            </button>
+            <button class="counter-btn btn-increase" id="incBtn">
+                <span class="material-icons btn-icon">add</span>
+                <span class="btn-label">INCREASE</span>
+            </button>
         </div>
 
-        <div class="button-group">
-          <button class="btn btn-decrease">
-            <span class="btn-text">−</span>
-          </button>
+        <!-- Quote -->
+        <p class="quote-text">
+            TEAR APART THE NARRATIVE THAT SAYS YOU ARE ANYTHING LESS THAN CAPABLE.
+        </p>
 
-          <button class="btn btn-reset">
-            <span class="btn-text">Reset</span>
-          </button>
+        <!-- Reset Button -->
+        <button class="reset-btn">
+            <span class="material-icons">refresh</span> RESET
+        </button>
 
-          <button class="btn btn-increase">
-            <span class="btn-text">+</span>
-          </button>
-        </div>
+    </main>
 
-        <div class="footer">
-          <p>Made with ❤️ by <span class="highlight">You</span></p>
-        </div>
-      </div>
-    </div>
+    <!-- Dark Mode Toggle -->
+    <button class="dark-mode-toggle">
+        <span class="material-icons icon-dark">dark_mode</span>
+        <span class="material-icons icon-light">light_mode</span>
+    </button>
 
+    <!-- Grain Overlay -->
+    <div class="grain-overlay"></div>
     <script src="script.js"></script>
-  </body>
+</body>
 </html>

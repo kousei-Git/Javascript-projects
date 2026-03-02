@@ -1,233 +1,663 @@
-/* Import Google Font */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+/* ============================================
+   CSS CUSTOM PROPERTIES
+   ============================================ */
+:root {
+    --primary: #FF3AC4;
+    --memphis-yellow: #FFE135;
+    --memphis-green: #39FF14;
+    --memphis-orange: #FF8C00;
+    --background-light: #E0E7FF;
+    --background-dark: #4A47A3;
+    --black: #000000;
+    --white: #FFFFFF;
+    --zinc-200: #e4e4e7;
+    --zinc-800: #27272a;
+}
 
-/* Reset & Base Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  font-family: "Poppins", sans-serif;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  position: relative;
-  overflow: hidden;
+    font-family: 'Space Grotesk', sans-serif;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    position: relative;
+    background-color: var(--background-dark);
 }
 
-/* Animated Background Circles */
+/* Dark mode background (default since html has class="dark") */
+.dark body {
+    background-color: var(--background-dark);
+}
+
+
+/* ============================================
+   GRAINY BACKGROUND OVERLAY (on body)
+   ============================================ */
 body::before {
-  content: "";
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  top: -250px;
-  right: -250px;
-  animation: float 6s ease-in-out infinite;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.15;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    z-index: 10;
 }
 
-body::after {
-  content: "";
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  bottom: -200px;
-  left: -200px;
-  animation: float 8s ease-in-out infinite;
+
+/* ============================================
+   FLOATING ANIMATION
+   ============================================ */
+@keyframes floating {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
 }
 
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(20px);
-  }
+
+/* ============================================
+   FLOATING DECORATIVE CIRCLES
+   ============================================ */
+.floating-circle {
+    position: absolute;
+    border-radius: 50%;
+    box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+    animation: floating 3s ease-in-out infinite;
+    opacity: 0.8;
+    z-index: 0;
 }
 
-/* Container */
-.container {
-  position: relative;
-  z-index: 1;
+.circle-yellow {
+    top: 5rem;          /* top-20 */
+    left: 5rem;         /* left-20 */
+    width: 4rem;        /* w-16 */
+    height: 4rem;       /* h-16 */
+    background-color: var(--memphis-yellow);
+    animation-delay: 0s;
 }
 
-/* Counter Card - Glassmorphism Effect */
-.counter-card {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  border-radius: 30px;
-  padding: 50px 60px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  min-width: 450px;
-  text-align: center;
-  transition: transform 0.3s ease;
+.circle-green {
+    top: 50%;
+    left: -2.5rem;      /* -left-10 */
+    width: 6rem;        /* w-24 */
+    height: 6rem;       /* h-24 */
+    background-color: var(--memphis-green);
+    animation-delay: 1s;
 }
 
-.counter-card:hover {
-  transform: translateY(-5px);
+.circle-orange {
+    bottom: 5rem;       /* bottom-20 */
+    right: 5rem;        /* right-20 */
+    width: 5rem;        /* w-20 */
+    height: 5rem;       /* h-20 */
+    background-color: var(--memphis-orange);
+    animation-delay: 2s;
 }
 
-/* Header */
-.header h1 {
-  font-size: 2.5rem;
-  color: #ffffff;
-  font-weight: 700;
-  margin-bottom: 10px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+.circle-pink {
+    top: 25%;           /* top-1/4 */
+    right: 25%;         /* right-1/4 */
+    width: 3rem;        /* w-12 */
+    height: 3rem;       /* h-12 */
+    background-color: var(--primary);
+    animation-delay: 0.5s;
 }
 
-.subtitle {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1rem;
-  font-weight: 300;
-  margin-bottom: 30px;
+
+/* ============================================
+   NAVIGATION BAR
+   ============================================ */
+.nav-bar {
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+    z-index: 50;
 }
 
-/* Counter Display */
+.nav-btn {
+    padding: 0.5rem 1.5rem;
+    border: 4px solid var(--black);
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+    transition: all 0.1s;
+}
+
+.nav-btn:active {
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 1);
+    transform: translate(4px, 4px);
+}
+
+.nav-btn-active {
+    background-color: var(--memphis-yellow);
+    color: var(--black);
+}
+
+.nav-btn-active:hover {
+    background-color: #facc15; /* yellow-400 */
+}
+
+.nav-btn-disabled {
+    background-color: var(--zinc-800);
+    color: var(--white);
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.nav-btn-disabled:active {
+    box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+    transform: none;
+}
+
+
+/* ============================================
+   MAIN CONTAINER
+   ============================================ */
+.main-container {
+    position: relative;
+    z-index: 20;
+    width: 100%;
+    max-width: 56rem;    /* max-w-4xl */
+    background-color: var(--memphis-green);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    /* inner-frame */
+    border: 8px solid var(--memphis-orange);
+    outline: 8px solid var(--primary);
+
+    /* memphis-pattern */
+    background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFE135' fill-opacity='0.4'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+@media (min-width: 768px) {
+    .main-container {
+        padding: 3rem;
+    }
+}
+
+
+/* ============================================
+   MAIN TITLE
+   ============================================ */
+.main-title {
+    color: var(--black);
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 2.25rem;    /* text-4xl */
+    line-height: 2.5rem;
+    margin-bottom: 3rem;    /* mb-12 */
+    text-transform: uppercase;
+    letter-spacing: -0.05em; /* tracking-tighter */
+    transform: rotate(-2deg);
+    background-color: var(--white);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border: 4px solid var(--black);
+}
+
+
+/* ============================================
+   COUNTER WRAPPER
+   ============================================ */
+.counter-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;    /* mb-12 */
+}
+
+
+/* ============================================
+   COUNTER DISPLAY (torn paper card)
+   ============================================ */
 .counter-display {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  padding: 40px;
-  margin: 30px 0;
-  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: var(--memphis-yellow);
+    border: 4px solid var(--black);
+    width: 16rem;          /* w-64 */
+    height: 16rem;         /* h-64 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(3deg);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* shadow-2xl */
+    position: relative;
+
+    /* torn-paper clip-path */
+    clip-path: polygon(
+        0% 0%, 5% 2%, 10% 0%, 15% 3%, 20% 0%, 25% 4%, 30% 0%, 35% 2%, 40% 0%, 45% 3%, 50% 0%, 55% 4%, 60% 0%, 65% 2%, 70% 0%, 75% 3%, 80% 0%, 85% 4%, 90% 0%, 95% 2%, 100% 0%,
+        100% 100%, 95% 98%, 90% 100%, 85% 97%, 80% 100%, 75% 96%, 70% 100%, 65% 98%, 60% 100%, 55% 97%, 50% 100%, 45% 96%, 40% 100%, 35% 98%, 30% 100%, 25% 97%, 20% 100%, 15% 96%, 10% 100%, 5% 98%, 0% 100%
+    );
 }
 
-#counter {
-  font-size: 5rem;
-  font-weight: 700;
-  color: #ffffff;
-  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-  display: inline-block;
+@media (min-width: 768px) {
+    .counter-display {
+        width: 20rem;      /* md:w-80 */
+        height: 20rem;     /* md:h-80 */
+    }
 }
 
-/* Button Group */
-.button-group {
-  display: flex;
-  gap: 15px;
-  margin-top: 30px;
-  justify-content: center;
+
+/* ============================================
+   COUNTER VALUE (the number "0")
+   ============================================ */
+.counter-value {
+    color: var(--black);
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 8rem;       /* text-9xl ~ approximation */
+    line-height: 1;
+    user-select: none;
+    -webkit-user-select: none;
+
+    /* Subtle pulsing animation to mimic the counter display being alive */
+    animation: counter-pulse 2s ease-in-out infinite;
 }
 
-/* Buttons */
-.btn {
-  flex: 1;
-  padding: 15px 25px;
-  border: none;
-  border-radius: 15px;
-  font-size: 1.2rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  font-family: "Poppins", sans-serif;
+@keyframes counter-pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.03);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
-.btn:active {
-  transform: scale(0.95);
+@media (min-width: 768px) {
+    .counter-value {
+        font-size: 12rem;  /* md:text-[12rem] */
+    }
 }
 
-/* Decrease Button */
+
+/* ============================================
+   COUNTER DISPLAY — DECORATIVE DOTS
+   ============================================ */
+.counter-dot-tl {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: var(--black);
+    border-radius: 50%;
+    opacity: 0.1;
+}
+
+.counter-dot-br {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    width: 3rem;
+    height: 3rem;
+    background-color: var(--primary);
+    border-radius: 50%;
+    opacity: 0.2;
+    animation: floating 3s ease-in-out infinite;
+}
+
+
+/* ============================================
+   SIDE LABELS (READY / GO!)
+   ============================================ */
+.side-label {
+    display: none;
+    position: absolute;
+    top: 50%;
+}
+
+@media (min-width: 768px) {
+    .side-label {
+        display: block;
+    }
+}
+
+.side-label-left {
+    left: -2.5rem;
+    transform: translateY(-50%) rotate(-12deg);
+}
+
+.side-label-right {
+    right: -2.5rem;
+    top: 33.333%;
+    transform: translateY(-50%) rotate(12deg);
+}
+
+.label-ready {
+    background-color: var(--primary);
+    border: 4px solid var(--black);
+    padding: 1rem;
+    font-family: 'Archivo Black', sans-serif;
+    color: var(--white);
+    box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+    transition: all 0.1s;
+}
+
+.label-go {
+    background-color: var(--black);
+    border: 4px solid var(--black);
+    padding: 1rem;
+    font-family: 'Archivo Black', sans-serif;
+    color: var(--memphis-yellow);
+    box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+    transition: all 0.1s;
+}
+
+
+/* ============================================
+   BUTTONS ROW
+   ============================================ */
+.buttons-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+
+/* ============================================
+   COUNTER BUTTONS (Decrease / Increase)
+   ============================================ */
+.counter-btn {
+    position: relative;
+    width: 6rem;           /* w-24 */
+    height: 6rem;          /* h-24 */
+    border: 8px solid var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+
+    /* chunky-shadow */
+    box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+}
+
+@media (min-width: 768px) {
+    .counter-btn {
+        width: 8rem;       /* md:w-32 */
+        height: 8rem;      /* md:h-32 */
+    }
+}
+
+.counter-btn:active {
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 1);
+    transform: translate(4px, 4px) scale(0.95);
+}
+
 .btn-decrease {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  color: white;
+    background-color: var(--zinc-200);
+    color: var(--black);
+}
+
+.btn-increase {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+/* Button icons */
+.btn-icon {
+    font-size: 3.75rem;   /* text-6xl */
+    user-select: none;
+    -webkit-user-select: none;
+    transition: transform 0.15s;
+}
+
+@media (min-width: 768px) {
+    .btn-icon {
+        font-size: 6rem;  /* md:text-8xl */
+    }
+}
+
+/* Decrease icon shrinks on active */
+.btn-decrease:active .btn-icon {
+    transform: scale(0.75);
+}
+
+/* Increase icon grows on active */
+.btn-increase:active .btn-icon {
+    transform: scale(1.25);
+}
+
+
+/* ============================================
+   BUTTON LABELS (DECREASE / INCREASE text)
+   ============================================ */
+.btn-label {
+    position: absolute;
+    bottom: -2rem;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 0.875rem;    /* text-sm */
+    letter-spacing: 0.1em;  /* tracking-widest */
+    color: var(--black);
+}
+
+
+/* ============================================
+   QUOTE TEXT
+   ============================================ */
+.quote-text {
+    margin-top: 5rem;       /* mt-20 */
+    text-align: center;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.25rem;     /* text-xl */
+    max-width: 32rem;       /* max-w-lg */
+    color: var(--black);
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 1rem;
+    border: 4px dashed var(--black);
+}
+
+
+/* ============================================
+   RESET BUTTON
+   ============================================ */
+.reset-btn {
+    margin-top: 3rem;       /* mt-12 */
+    background-color: var(--black);
+    color: var(--white);
+    padding: 0.75rem 2.5rem;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 1.25rem;
+    letter-spacing: 0.1em;
+    border: 4px solid var(--black);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s;
+}
+
+.reset-btn:hover {
+    background-color: var(--zinc-800);
+}
+
+/* Spin the refresh icon on hover */
+.reset-btn .material-icons {
+    transition: transform 0.4s ease;
+}
+
+.reset-btn:hover .material-icons {
+    transform: rotate(360deg);
+}
+
+
+/* ============================================
+   DARK MODE TOGGLE BUTTON
+   ============================================ */
+.dark-mode-toggle {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    border: 4px solid var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    cursor: pointer;
+    background-color: var(--zinc-800);
+    color: var(--white);
+
+    /* chunky-shadow */
+    box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+    transition: all 0.1s;
+}
+
+.dark-mode-toggle:active {
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 1);
+    transform: translate(4px, 4px);
+}
+
+/* In dark mode: show light icon, hide dark icon */
+.icon-dark {
+    display: none;
+}
+
+.icon-light {
+    display: block;
+}
+
+
+/* ============================================
+   GRAIN OVERLAY (fixed fullscreen)
+   ============================================ */
+.grain-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.1;
+    background-repeat: repeat;
+    z-index: 100;
+    background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCqWCJatmnFCSw8VSe8-rDyVkchGIgSxyAqKDGb94oQdF--8Yo30Kpu4yCFhbHH3H0YodQGEuOTaEZxWajklnR_vwvhPfQ44EV_H8DwBlHVOrZ0yGjvr32GGedXpr2DdB4q-H6rQIGtB3TlVhGdqtLLUWJxabwLNjsfDRr94fZGr_hafNYNymachJNlFDJbRkeFCN6_vuESigfCCD3vFsFLon-vQqY8wkIJNAV00CM98E7nWzU2Suxn0eUrn1nPPb_hRINJ0t4S-Q');
+}
+
+
+/* ============================================
+   ADDITIONAL HOVER ANIMATIONS
+   ============================================ */
+
+/* Nav active button hover lift */
+.nav-btn-active:hover {
+    transform: translateY(-2px);
+    box-shadow: 8px 10px 0px 0px rgba(0, 0, 0, 1);
+}
+
+/* Counter display hover — slight scale and rotation shift */
+.counter-display:hover {
+    transform: rotate(1deg) scale(1.02);
+    transition: transform 0.3s ease;
+}
+
+/* Side labels gentle bobbing */
+@keyframes label-bob {
+    0% {
+        transform: translateY(-50%) rotate(-12deg) translateX(0);
+    }
+    50% {
+        transform: translateY(-50%) rotate(-12deg) translateX(5px);
+    }
+    100% {
+        transform: translateY(-50%) rotate(-12deg) translateX(0);
+    }
+}
+
+@keyframes label-bob-right {
+    0% {
+        transform: translateY(-50%) rotate(12deg) translateX(0);
+    }
+    50% {
+        transform: translateY(-50%) rotate(12deg) translateX(-5px);
+    }
+    100% {
+        transform: translateY(-50%) rotate(12deg) translateX(0);
+    }
+}
+
+@media (min-width: 768px) {
+    .side-label-left {
+        animation: label-bob 2.5s ease-in-out infinite;
+    }
+
+    .side-label-right {
+        animation: label-bob-right 2.5s ease-in-out infinite;
+        animation-delay: 0.8s;
+    }
+}
+
+/* Quote text gentle fade-in shimmer */
+@keyframes shimmer {
+    0% {
+        opacity: 0.85;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.85;
+    }
+}
+
+.quote-text {
+    animation: shimmer 4s ease-in-out infinite;
+}
+
+/* Button hover glow effect */
+.btn-increase:hover {
+    box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1), 0 0 20px rgba(255, 58, 196, 0.4);
 }
 
 .btn-decrease:hover {
-  background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
-  box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4);
+    box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1), 0 0 20px rgba(228, 228, 231, 0.4);
 }
 
-/* Reset Button */
-.btn-reset {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  color: white;
-}
-
-.btn-reset:hover {
-  background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-  box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4);
-}
-
-/* Increase Button */
-.btn-increase {
-  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-  color: white;
-}
-
-.btn-increase:hover {
-  background: linear-gradient(135deg, #38f9d7 0%, #43e97b 100%);
-  box-shadow: 0 6px 20px rgba(67, 233, 123, 0.4);
-}
-
-.btn-text {
-  display: inline-block;
-  transition: transform 0.3s ease;
-}
-
-.btn:hover .btn-text {
-  transform: scale(1.1);
-}
-
-/* Footer */
-.footer {
-  margin-top: 30px;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.9rem;
-}
-
-.highlight {
-  color: #ffd700;
-  font-weight: 600;
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-  .counter-card {
-    min-width: 90%;
-    padding: 40px 30px;
-  }
-
-  .header h1 {
-    font-size: 2rem;
-  }
-
-  #counter {
-    font-size: 4rem;
-  }
-
-  .button-group {
-    flex-direction: column;
-  }
-
-  .btn {
-    width: 100%;
-  }
-}
-
-/* Animation for counter change */
-@keyframes pop {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-.pop {
-  animation: pop 0.3s ease;
+/* Reset button active press */
+.reset-btn:active {
+    transform: translateY(2px);
 }
