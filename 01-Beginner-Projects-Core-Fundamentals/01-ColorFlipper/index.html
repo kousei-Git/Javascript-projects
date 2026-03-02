@@ -1,30 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Color Flipper</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Pop Art Color Flipper</title>
+
+    <script>
+        const savedColor = localStorage.getItem('color')
+        if (savedColor)
+            document.documentElement.style.setProperty('--body-bg',savedColor)
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&amp;family=Comic+Neue:wght@400;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-    
-    <nav class="navbar">
-        <h2 class="nav-title">🎨 Color Flipper</h2>
+
+    <!-- Grain Overlay -->
+    <div class="grain-overlay"></div>
+
+    <!-- Halftone Background -->
+    <div class="halftone-background"></div>
+
+    <!-- Decorative Cloud Elements - Left -->
+    <div class="cloud cloud-left-1"></div>
+    <div class="cloud cloud-left-2"></div>
+    <div class="cloud cloud-left-3"></div>
+
+    <!-- Decorative Cloud Elements - Right -->
+    <div class="cloud cloud-right-1"></div>
+    <div class="cloud cloud-right-2"></div>
+    <div class="cloud cloud-right-3"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-logo">
+            <span>Color Flipper</span>
+        </div>
+        <div class="nav-buttons">
+            <button class="btn-simple">Simple</button>
+            <button class="btn-hex active">Hex</button>
+            <!-- <button class="btn-theme" id="theme-toggle" aria-label="Toggle Dark Mode">
+                <span class="material-icons">brightness_6</span>
+            </button> -->
+        </div>
     </nav>
 
-    <main class="main-section">
-        <div class="content-wrapper">
-            <h1 class="main-heading">
-                Background Color : <span class="color-display" id="colorCode">#8B5CF6</span>
-            </h1>
-            
-            <button class="flip-btn">
-                <span class="btn-icon">✨</span>
-                FLIP COLOR
-            </button>
+    <!-- Main Content -->
+    <main>
+        <div class="main-container">
+
+            <!-- Color Display Card -->
+            <div class="color-card">
+                <div class="card-corner-tl"></div>
+                <div class="card-corner-br"></div>
+                <div class="card-content">
+                    <h2>Background Color :</h2>
+                    <div class="color-code-wrapper">
+                        <span class="color-code" id="color-code">#E63946</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flip Button Area -->
+            <div class="flip-button-area">
+                <div class="burst-shape"></div>
+                <button class="flip-btn" id="flip-btn">
+                    <span class="flip-btn-content">
+                        Flip Color
+                        <span class="material-icons flip-icon">autorenew</span>
+                    </span>
+                </button>
+            </div>
+
+            <!-- Info Cards -->
+            <div class="info-cards">
+                <div class="info-card info-card-left">
+                    <div class="info-card-inner">
+                        <div class="info-icon-box info-icon-red">
+                            <span class="material-icons">palette</span>
+                        </div>
+                        <p>"Bright Visions!"</p>
+                    </div>
+                </div>
+                <div class="info-card info-card-right">
+                    <div class="info-card-inner info-card-inner-right">
+                        <p>"Beautiful Reality!"</p>
+                        <div class="info-icon-box info-icon-white">
+                            <span class="material-icons">visibility</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </main>
 
+    <!-- Footer -->
+    <!-- <footer>
+        <div class="footer-content">
+            <p>© 2023 POP ART FLIPPER. ALL RIGHTS RESERVED.</p>
+            <div class="footer-links">
+                <a href="#"><i class="material-icons">facebook</i></a>
+                <a href="#"><i class="material-icons">alternate_email</i></a>
+                <a href="#"><i class="material-icons">code</i></a>
+            </div>
+        </div>
+    </footer> -->
+    <script src="ntc.js"></script>
     <script src="script.js"></script>
+
 </body>
+
 </html>
