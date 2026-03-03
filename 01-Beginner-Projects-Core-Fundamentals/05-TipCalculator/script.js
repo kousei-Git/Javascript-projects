@@ -1,79 +1,56 @@
-let input = document.getElementById('billAmount')
-let amount //bill-Amount
+let cassetteInput = document.querySelector('.cassette-input')
+let person = document.querySelector('.party-input')
+let tipBtns = document.querySelector('.tip-buttons-grid')
+let tipAmount = document.getElementById('tipResult')
+let totalPerPerson = document.getElementById('totalResult')
+let customTip = document.getElementById('customTip')
+let calculateBtn = document.querySelector('.calc-button')
+let defaultTipBtn = document.querySelector('.tip-btn')
+let personStr = 1
+let billAmount = 0
+let tipAmountStr = 15
 
-input.addEventListener('input',()=>{
-    amount = input.value
+cassetteInput.addEventListener('input', () => {
+    billAmount = cassetteInput.value
+})
+customTip.addEventListener('input', () => {
+    tipAmountStr = customTip.value
 })
 
-let allBtn = document.querySelector('.tip-buttons')
-let eachBtn = document.querySelectorAll('.tip-btn')
-let tipAmount //tip-Amount
-allBtn.addEventListener('click',(e)=>{
-    let btn = e.target.closest('[data-tip]')
+person.addEventListener('input', () => {
+    personStr = person.value
+})
+
+const calculateTip = (amount,tip,personStr) => {
+    let totalTip = (amount * tip) / 100
+    let totalTipPerson = totalTip/personStr
+    tipAmount.textContent = `$${totalTip}`
+    totalPerPerson.textContent = `$${totalTipPerson}`
+}
+
+tipBtns.addEventListener('click', (e) => {
+    const btn = e.target.closest('.tip-btn')
     if(!btn) return
-    eachBtn.forEach((e)=>{
+    const allTipBtn = document.querySelectorAll('.tip-btn')
+    tipAmountStr = btn.dataset.tip
+    allTipBtn.forEach(e => {
         e.classList.remove('active')
     })
     btn.classList.add('active')
-    tipAmount = totalTip(amount,btn.dataset.tip)
-    updateDisplay()
 })
 
-let customTip = document.getElementById('customTip')
-let customTipAmount
-customTip.addEventListener('input',()=>{
-    eachBtn.forEach((e)=>{
-        e.classList.remove('active')
-    })
-    customTipAmount = customTip.value
-    tipAmount = totalTip(amount,customTipAmount)
-    updateDisplay()
+calculateBtn.addEventListener('click', () => {
+    calculateTip(billAmount,tipAmountStr,personStr)
 })
 
-function totalTip(bill,tip){
-    let tipAmount = (bill * tip) / 100
-    return tipAmount
-}
-
-let people = 1
-let peopleUpdate = document.getElementById('peopleCount')
-let decreasePeople = document.getElementById('decreasePeople')
-let increasePeople = document.getElementById('increasePeople')
-
-decreasePeople.addEventListener('click',()=>{
-    if(people > 1){
-        people--
-        peopleUpdate.textContent = people
-        updateDisplay()
+document.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter'){
+        calculateTip(billAmount,tipAmountStr,personStr)
+        if (e.repeat) return;
+        calculateBtn.classList.add('pressed');
+    
+        setTimeout(() => {
+            calculateBtn.classList.remove('pressed');  // Doesn't affect :active
+        }, 200);
     }
-})
-increasePeople.addEventListener('click',()=>{
-    people++
-    peopleUpdate.textContent = people
-    updateDisplay()
-})
-
-let updateTipAmount = document.getElementById('tipAmount') //tip-per-person
-let updateBill = document.getElementById('billPerPerson') //bill-per-person
-// let updateTotalAmount = document.getElementById('totalAmount') //total-amount
-
-function updateDisplay(){
-    updateTipAmount.textContent = parseInt(tipAmount/people)
-    updateBill.textContent = parseInt(amount/people)
-    // updateTotalAmount.textContent = parseInt(amount) + parseInt(tipAmount)
-}
-
-let resetBtn = document.getElementById('resetBtn')
-resetBtn.addEventListener('click',()=>{
-    amount = 0
-    input.value = ''
-    customTipAmount = 0
-    customTip.value = ''
-    person = 1
-    peopleUpdate.textContent = 1
-    eachBtn.forEach((e)=>{
-        e.classList.remove('active')
-    })
-    updateTipAmount.textContent = "0.00"
-    updateBill.textContent = "0.00"
 })
