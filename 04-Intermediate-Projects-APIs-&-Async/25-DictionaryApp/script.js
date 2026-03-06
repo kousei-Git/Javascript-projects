@@ -86,7 +86,8 @@ async function fetchApi(word){
     }
 }
 
-searchBtn.addEventListener('click', () => {  
+searchBtn.addEventListener('click', (e) => {  
+    e.preventDefault()
     const value = landingPageInput.value.trim()
     if(value !== ''){
         landingPageInput.value = ''
@@ -94,7 +95,8 @@ searchBtn.addEventListener('click', () => {
         gotoMainPage()
     }
 })
-navBtn.addEventListener('click', () => {
+navBtn.addEventListener('click', (e) => {
+    e.preventDefault()
     const value = navInput.value.trim()
     if(value !== ''){
         navInput.value = ''
