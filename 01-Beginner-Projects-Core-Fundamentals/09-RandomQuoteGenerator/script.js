@@ -1,56 +1,65 @@
-// const API_URL = 'https://api.quotable.io/random';
+const API_LINK = 'https://icanhazdadjoke.com/'
 
-const newQuoteBtn = document.getElementById('newQuoteBtn')
-const quoteText = document.getElementById('quoteText')
-const authorName = document.getElementById('authorName')
-const copyText = document.getElementById('copyText')
-const copyBtn = document.querySelector('.btn-secondary')
-const toast = document.getElementById('toast')
+let randomJokeBtn = document.getElementById('jokeBtn')
+let jokeContainer = document.getElementById('jokeText')
+let displayJokesHistory = document.getElementById('jokeHistory')
+let historySection = document.querySelector('.history-column')
+let copyBtn = document.querySelector('.btn-share')
+let arr = []
 
-let quoteStr = ''
-let authorStr = ''
+async function getJokeApi(){
+    const response = await fetch(API_LINK, {
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    const data = await response.json()
+    updateData(data)
+}
 
-newQuoteBtn.addEventListener('click',()=>{
-    getQuote()
+randomJokeBtn.addEventListener('click', () => {
+    getJokeApi()    
 })
 
-copyText.addEventListener('click',()=>{
-    const textToCopy = `“${quoteStr}”
-— ${authorStr}`;
-    navigator.clipboard.writeText(textToCopy);
-})
-
-async function getQuote(){
-    try{
-        showLoadingOverlay()
-        const res = await fetch("https://dummyjson.com/quotes/random")
-        const data = await res.json();
-        quoteStr = data.quote
-        authorStr = data.author
-        // quoteText.textContent = `"${data.quote}"`
-        // authorName.textContent = `"${data.author}"`
-        quoteText.textContent = quoteStr
-        authorName.textContent = authorStr
-    }catch{
-        quoteText.textContent = "Failed to load quote.";
-        authorName.textContent = "";
-    }finally{
-        hideLoadingOverlay()
+function updateData(data){
+    jokeContainer.textContent = data.joke
+    if(arr.length >= 3){
+        arr.pop()
     }
+    arr.unshift(data.joke)
+    saveJokes(arr)
+    updateDisplay(arr)
 }
 
-copyBtn.addEventListener('click',()=>{
-    toast.classList.add('show')
-    setTimeout(() => {
-      toast.classList.remove('show')
-    }, 2000);
+function updateDisplay(arr){
+    displayJokesHistory.innerHTML = ''
+    if (!arr.length > 0 ) return
+    historySection.style.display = 'block'
+    arr.map(item => {
+        displayJokesHistory.innerHTML += `
+            <li class="history-item">
+                ${item}
+            </li>
+        `
+    })
+}
+
+copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(jokeContainer.textContent)
 })
 
-const loadingOverlay = document.querySelector('.loading-overlay')
+function saveJokes(arr){
+    localStorage.setItem('Array', JSON.stringify(arr))
+}
 
-function showLoadingOverlay(){
-    loadingOverlay.classList.add('show')
+function renderJokes(){
+    const savedJokes = JSON.parse(localStorage.getItem('Array'))
+    console.log(savedJokes)
+    if(!savedJokes) return
+    arr = savedJokes
+    updateDisplay(arr)
+    console.log(arr[0])
+    jokeContainer.innerHTML = arr[0]
 }
-function hideLoadingOverlay(){
-    loadingOverlay.classList.remove('show')
-}
+
+renderJokes()

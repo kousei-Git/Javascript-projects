@@ -1,107 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌸 Cute Quote Generator 🌸</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Vienna's Famous Dad Joke Bar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Permanent+Marker&family=Roboto:wght@700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <!-- Floating Decorations -->
-    <div class="floating-decorations">
-        <span class="float-item heart">💗</span>
-        <span class="float-item heart">💕</span>
-        <span class="float-item star">⭐</span>
-        <span class="float-item star">✨</span>
-        <span class="float-item cloud">☁️</span>
-        <span class="float-item flower">🌸</span>
-        <span class="float-item flower">🌷</span>
-        <span class="float-item sparkle">💫</span>
-    </div>
-
-    <!-- Main Container -->
-    <div class="container">
-        
-        <!-- Title -->
-        <h1 class="main-title">
-            <span>⭐</span> Daily Sparkle <span>⭐</span>
-        </h1>
-        
-        <!-- Quote Card -->
-        <div class="quote-card">
-            
-            <!-- Cute Corner Decorations -->
-            <div class="corner-decor top-left">🌸</div>
-            <div class="corner-decor top-right">🌸</div>
-            <div class="corner-decor bottom-left">🌸</div>
-            <div class="corner-decor bottom-right">🌸</div>
-            
-            <!-- Cute Mascot -->
-            <div class="mascot-container">
-                <div class="mascot" id="mascot">🐰</div>
-                <div class="mascot-shadow"></div>
-            </div>
-
-            <!-- Quote Content -->
-            <div class="quote-content">
-                <div class="quote-marks open">❝</div>
-                <p class="quote-text" id="quoteText">
-                    Click the button to receive your daily dose of inspiration!
-                </p>
-                <div class="quote-marks close">❞</div>
-            </div>
-
-            <!-- Author Section -->
-            <div class="author-section">
-                <div class="author-line"></div>
-                <span class="author-name" id="authorName">Your Bunny Friend</span>
-                <div class="author-line"></div>
-            </div>
-
-            <!-- Cute Divider -->
-            <div class="cute-divider">
-                <span>♡</span>
-                <span>✿</span>
-                <span>♡</span>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="action-buttons">
-                <button class="btn btn-primary" id="newQuoteBtn">
-                    <span class="btn-icon">💖</span>
-                    <span class="btn-text">New Quote</span>
-                    <span class="btn-sparkle">✨</span>
-                </button>
-                
-                <button class="btn btn-secondary">
-                    <span class="btn-icon">💗</span>
-                    <span class="btn-text" id="copyText">Copy</span>
-                </button>
-                
-                <!-- <button class="btn btn-heart" id="favBtn" onclick="toggleFavorite()">
-                    <span id="favIcon">🤍</span>
-                </button> -->
-            </div>
-
+    <!-- Header -->
+    <header class="header">
+        <div class="header-decor">
+            <img
+                alt="Moose Logo Fragment"
+                class="header-decor-img"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe1BSopkr5inTwYJ48YKEX-KW1FshSutO6g5qC3SE2F8OYZ7Vng_-awMKQbkpk_ryP_L2sQ2zLHG7F8DY-Su9jC2_vaI_Z5sExZXpHK2cHDwTxkmUvT-Rm_TbFAlpX6lyLyP_puEcWZp0RgC4SvuaFa3qhCnsJoo7yjJDP7k2hZiVxvhYpFAytkpMdjAwXEJ7HvEPScycPArJrYVx7B23o5GQFqxVQiASB4t5sFbIv5OKZKoqyydldy6Cty4vVvxX0kr560wfSSLlF"
+            />
         </div>
-
-    <!-- Toast Notification -->
-    <div class="toast" id="toast">
-        <span class="toast-icon">💕</span>
-        <span class="toast-text" id="toastText">Copied!</span>
-    </div>
-
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner">
-            <span>🌸</span>
+        <div class="header-content">
+            <h1 class="header-title comic-font">The Groan &amp; Gulp</h1>
         </div>
-        <p>Getting your quote...</p>
-    </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-grid">
+
+        <!-- Center Column: Joke Display -->
+        <section class="joke-column">
+            <div class="joke-card">
+                <div class="joke-card-badge">TAP FOR WISDOM</div>
+                <div class="joke-card-body" id="jokeContainer">
+                    <p class="joke-text comic-font" id="jokeText">
+                        "I'm afraid for the calendar. Its days are numbered."
+                    </p>
+                </div>
+                <div class="joke-card-footer">
+                    <div class="joke-card-actions">
+                        <button class="btn-share">COPY</button>
+                    </div>
+                    <span class="joke-card-hashtag">#BADPUNS</span>
+                </div>
+            </div>
+        </section>
+
+        <button class="btn-get-joke comic-font" id="jokeBtn">Get Random Joke</button>
+
+        <!-- Bottom/Full Width: Recent Groans -->
+        <section class="history-column" style="display: none;">
+            <div class="history-card">
+                <h2 class="history-title comic-font">RECENT GROANS (HISTORY)</h2>
+                <ul class="history-list" id="jokeHistory">
+                    <!-- //Item -->
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <p class="main-footer-text">
+            No Mooses were harmed in the making of these jokes. Probably.
+        </p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
 </html>
-
